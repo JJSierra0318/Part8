@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
 import { EDIT_AUTHOR, ALL_AUTHORS } from '../queries'
 
-const AuthorForm = ({ notify }) => {
+const AuthorForm = (props) => {
   const getAuthors = useQuery(ALL_AUTHORS)
   const [ editAuthor, result ] = useMutation(EDIT_AUTHOR,
     {
@@ -17,15 +17,17 @@ const AuthorForm = ({ notify }) => {
 
   useEffect(() => {
     if (result.data && !result.data.editAuthor) {
-      notify('name not found')
+      props.notify('name not found')
     }
   })
+
+  if (!props.show) return null
 
   if (getAuthors.loading) {
     return <div>loading...</div>
   }
 
-  const authors = getAuthors.data.allAuthors
+  const authors = getAuthors.data ? getAuthors.data.allAuthors : []
 
   const submit = (event) => {
     event.preventDefault()

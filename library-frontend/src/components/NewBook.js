@@ -14,6 +14,7 @@ const NewBook = (props) => {
     refetchQueries: [ {query: ALL_BOOKS}, {query: ALL_AUTHORS} ],
     onError: (error) => {
       props.setError('some input fields are missing')
+      console.log(JSON.stringify(error))
     }
   })
 
