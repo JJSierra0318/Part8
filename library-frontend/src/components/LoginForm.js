@@ -30,6 +30,8 @@ const LoginForm = (props) => {
   const onSubmit = (event) => {
     event.preventDefault()
     login({ variables: { username, password } })
+    setUsername('')
+    setPassword('')
   }
 
   return (
