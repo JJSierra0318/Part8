@@ -13,6 +13,7 @@ export const ALL_AUTHORS = gql`
 export const ALL_BOOKS = gql`
   query getAllBooks {
     allBooks {
+      id
       title
       author {
         name
@@ -80,6 +81,22 @@ export const GET_USER = gql`
     me {
       username
       favoriteGenre
+    }
+  }
+`
+
+export const BOOK_ADDED = gql`
+  subscription {
+    addedBook {
+      id
+      book {
+        title
+      author {
+        name
+      }
+      published
+      genres
+      }
     }
   }
 `

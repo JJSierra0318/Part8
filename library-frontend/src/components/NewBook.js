@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useMutation } from '@apollo/client'
 
 import { ALL_AUTHORS, ALL_BOOKS, CREATE_BOOK } from '../queries'
+import { updateCache } from '../App'
 
 const NewBook = (props) => {
   const [title, setTitle] = useState('')
@@ -15,6 +16,9 @@ const NewBook = (props) => {
     onError: (error) => {
       props.setError('some input fields are missing')
       console.log(JSON.stringify(error))
+    },
+    update: (cache, response) => {
+      updateCache(cache, { query: ALL_BOOKS }, response.data.addBook)
     }
   })
 
